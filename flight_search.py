@@ -9,7 +9,6 @@ class FlightSearch:
         self.from_date = dt.datetime.now() + dt.timedelta(days=7)
         self.to_date = dt.datetime.now() + dt.timedelta(days=28)
 
-
     def search(self, price, fly_from, fly_to):
         params = {
             "price_to": price,
@@ -24,17 +23,6 @@ class FlightSearch:
 
         response = requests.get(url=self.endpoint, params=params, headers=self.header)
         response.raise_for_status()
-        print(response)
         data = response.json()["data"]
-        print(data[0])
-        return data[0]
-
-
-
-
-
-
-
-
-f = FlightSearch()
-f.search(50, "LON", "MIL")
+        if len(data) >= 1:
+            return data[0]
